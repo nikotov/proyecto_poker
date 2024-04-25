@@ -17,7 +17,23 @@ void dealHand(vector<int>& deck, vector<int>& hand);
 
 void sortHand(vector<int>& hand); 
 
-bool nthOfAKind(int n, vector<int>hand);
+void chooseHand(vector<int>& hand);
+
+bool isNthOfAKind(int n, vector<int>hand);
+
+bool isTwoPair(vector<int>hand);
+
+bool isStraight(vector<int>hand);
+
+bool isFlush(vector<int>hand);
+
+bool isFullHouse(vector<int>hand);
+
+bool isStraightFlush(vector<int>hand);
+
+bool isRoyalFlush(vector<int>hand);
+
+int valueHand(vector<int>hand);
 
 int main() {
 
@@ -39,11 +55,11 @@ int main() {
 
     sortHand(player);
 
-    cout << "Sorted Player Deck: " << endl;
+    cout << "\nSorted Player Deck: " << endl;
     printHand(player);
 
-    cout << boolalpha;
-    cout << nthOfAKind(3, player);
+    cout << endl << "Deck Value: ";
+    cout << valueHand(player);
 
     return 0;
 }
