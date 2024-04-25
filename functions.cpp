@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+
+#include "functions.h"
+
 using namespace std;
 
 // ASCII chars for suits
