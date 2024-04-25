@@ -1,4 +1,6 @@
 #include <vector>
+#include <string>
+using namespace std;
 
 void shuffleVec(vector<int>& vec);
 string getSuit(int card);
