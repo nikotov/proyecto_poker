@@ -6,6 +6,7 @@
 
 
 #include "functions.h"
+#include "print_game.h"
 
 using namespace std;
 
@@ -26,16 +27,16 @@ int main() {
     vector<int> computer;
 
     bool running = true;
+    int option;
     
     while(running) {
-        
+        option = printMenu();
         running = false;
         
     }
 
-    //printHand(deck);
 
-    shuffleVec(deck);
+    //shuffleVec(deck);
 
     //dealHand(deck, player);
     chooseHand(player);
