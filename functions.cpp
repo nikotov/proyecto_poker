@@ -73,6 +73,7 @@ void printHandB(vector<int>hand){
     }
 }
 
+
 void dealHand(vector<int>& deck, vector<int>& hand){
     const int handSize = 5;
 
