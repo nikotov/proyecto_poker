@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "functions.h"
+#include "print_game.h"
 
 using namespace std;
 
@@ -21,6 +22,15 @@ int main() {
     vector<int> player;
     vector<int> computer;
 
+    bool running = true;
+    
+    while(running) {
+        
+        running = false;
+        
+    }
+
+    //printHand(deck);
     shuffleVec(deck);
 
     dealHand(deck, player);
