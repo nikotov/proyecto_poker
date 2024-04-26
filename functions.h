@@ -22,7 +22,7 @@ string getSuit(int card);
 
 int getValue(int card);
 
-void printHand(vector<int>hand);
+void printHandB(vector<int>hand);
 
 void dealHand(vector<int>& deck, vector<int>& hand);
 

@@ -43,7 +43,7 @@ void shuffleVec(vector<int>& vec) {
 }
 
 
-void printHand(vector<int>hand){
+void printHandB(vector<int>hand){
 
     for(int i = 0; i < hand.size(); i++){
         cout << i+1 << ".) ";

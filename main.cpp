@@ -21,17 +21,16 @@ int main() {
     vector<int> player;
     vector<int> computer;
 
-    //printHand(deck);
     shuffleVec(deck);
 
     dealHand(deck, player);
     cout << "Player Deck: " << endl;
-    printHand(player);
+    printHandB(player);
 
     sortHand(player);
 
     cout << "\nSorted Player Deck: " << endl;
-    printHand(player);
+    printHandB(player);
 
     cout << endl << "Deck Value: ";
     cout << valueHand(player);
@@ -40,7 +39,7 @@ int main() {
     discardHand(deck, player);
 
     cout << "\nDiscard Player Deck: " << endl;
-    printHand(player);
+    printHandB(player);
 
     cout << endl << "Deck Value: ";
     cout << valueHand(player);
