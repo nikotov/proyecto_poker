@@ -271,6 +271,5 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     }
 
     sortHand(hand);
-
 }
 
