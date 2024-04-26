@@ -45,3 +45,5 @@ bool isStraightFlush(vector<int>hand);
 bool isRoyalFlush(vector<int>hand);
 
 int valueHand(vector<int>hand);
+
+void discardHand(vector<int>& deck, vector<int>& hand);

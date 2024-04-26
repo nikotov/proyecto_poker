@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <array>
 #include <algorithm>
 #include <iomanip>
 
@@ -46,7 +47,7 @@ void shuffleVec(vector<int>& vec) {
 void printHand(vector<int>hand){
 
     for(int i = 0; i < hand.size(); i++){
-        cout << i+2 << ".) ";
+        cout << i+1 << ".) ";
 
         //Handles non-numerical cards
         switch(getValue(hand[i])){
@@ -237,6 +238,39 @@ int valueHand(vector<int>hand){
     else if(isTwoPair(hand)) return 7;
     else if(isNthOfAKind(2, hand)) return 8;
     else return 9;
+
+}
+
+
+void discardHand(vector<int>& deck, vector<int>& hand){
+    cout <<"Cuales cartas del quieres descartar (0 para confirmar tu eleccion): ";
+    
+    //Creates a vector to store the indexes of cards that will be discarded
+    vector<int> discards;
+    for(int i = 0; i < hand.size();){
+        int temp;
+        cin >> temp;
+        if(temp == 0) break;
+        //Prevents the same card from being discarded twice
+        if(find(discards.begin(), discards.end(), temp) != discards.end()) 
+            cout << "Ya escogiste esta carta. Intenta otra vez.";
+        //Prevents an imput outside the range of the hand
+        else if(temp < 1 || temp > hand.size())
+            cout << "Introduce un numero valido. Intenta otra vez.";
+
+        else{
+            discards.push_back(temp-1);
+            i++;
+        }
+    }
+
+    for(const auto i: discards){
+        hand.erase(hand.begin() + i);
+        hand.push_back(deck[0]);
+        deck.erase(deck.begin());
+    }
+
+    sortHand(hand);
 
 }
 

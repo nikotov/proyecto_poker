@@ -3,8 +3,6 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
-
-
 #include "functions.h"
 
 using namespace std;
@@ -24,14 +22,6 @@ int main() {
     vector<int> player;
     vector<int> computer;
 
-    bool running = true;
-    
-    while(running) {
-        
-        running = false;
-        
-    }
-
     //printHand(deck);
     shuffleVec(deck);
 
@@ -43,6 +33,15 @@ int main() {
     sortHand(player);
 
     cout << "\nSorted Player Deck: " << endl;
+    printHand(player);
+
+    cout << endl << "Deck Value: ";
+    cout << valueHand(player);
+
+    cout << endl << endl;
+    discardHand(deck, player);
+
+    cout << "\nDiscard Player Deck: " << endl;
     printHand(player);
 
     cout << endl << "Deck Value: ";
