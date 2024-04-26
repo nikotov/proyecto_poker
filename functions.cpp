@@ -154,7 +154,7 @@ bool isTwoPair(vector<int>hand){
 bool isStraight(vector<int>hand){
     bool isStraight = true;
     for(int i = 0; i < hand.size() - 1; i++){
-        //Handles Ace being used as a high card     
+        //Handles Ace being used as a low card     
         if(i == 0){
             if(getValue(hand[hand.size() - 1]) == 14 && getValue(hand[i]) == 2 ) hand[hand.size() - 1] = 4;
         }
@@ -220,7 +220,7 @@ bool isStraightFlush(vector<int>hand){
 
 
 bool isRoyalFlush(vector<int>hand){
-    if(isStraightFlush(hand) && getValue(hand[hand.size()-1]) == 14 && getValue(hand[0]) == 10)
+    if(isStraightFlush(hand) && getValue(hand.back()) == 14 && getValue(hand[0]) == 10)
     return true;
     else return false;
 }

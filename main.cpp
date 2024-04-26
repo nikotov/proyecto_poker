@@ -10,7 +10,6 @@
 using namespace std;
 
 
-
 int main() {
 
     // Ordered deck
@@ -34,7 +33,6 @@ int main() {
     }
 
     //printHand(deck);
-
     shuffleVec(deck);
 
     //dealHand(deck, player);
