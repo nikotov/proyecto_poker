@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <iomanip>
 
 #include "functions.h"
@@ -100,14 +101,28 @@ void sortHand(vector<int>& hand){
 }
 
 
-bool nthOfAKind(int n, vector<int>hand){
-    int counter = 1;
+void chooseHand(vector<int>& hand){
+    //For testing purposes. Lets you put any 5 cards into a hand
+    for(int i = 0; i < 5; i++){
+        int temp;
+        cout << "Introduce el ID de una carta: ";
+        cin >> temp;
+        hand.push_back(temp);
+    }
+}
+
+
+bool isNthOfAKind(int n, vector<int>hand){
+    int counter = 0;
     int compare = 0;
+    //Uses a counter to keep track of number of matches for each individual card
     for(int i = 0; i < hand.size()+1 - n; i++){
+        counter = 1;
         int compare = getValue(hand[i]);
         for(int j = i+1; j < hand.size(); j++){
             if(getValue(hand[j]) == compare) counter++;
         }
+        //If enough matches are found, breaks the loop
         if(counter >= n) break;
     }
 
@@ -116,17 +131,112 @@ bool nthOfAKind(int n, vector<int>hand){
 }
 
 
-bool twoPair(vector<int>hand){
+bool isTwoPair(vector<int>hand){
+    //Uses a counter to keep track of pairs found
     int pairs = 0;
     for(int i = 0; i < hand.size()-1; i++){
         int compare = getValue(hand[i]);
         for(int j = i+1; j < hand.size(); j++){
-            if(getValue(hand[j]) == compare) pairs++;
+            //When a pair is found, stops loop and removes the second instance to avoid errors with 3 of a kind
+            if(getValue(hand[j]) == compare){ 
+                pairs++;
+                hand[j] = -1;
+                break;
+            }
         }
         if(pairs >= 2) break;
     }
-
     if(pairs >= 2) return true;
     else return false;
+}
+
+
+bool isStraight(vector<int>hand){
+    bool isStraight = true;
+    for(int i = 0; i < hand.size() - 1; i++){
+        //Handles Ace being used as a high card     
+        if(i == 0){
+            if(getValue(hand[hand.size() - 1]) == 14 && getValue(hand[i]) == 2 ) hand[hand.size() - 1] = 4;
+        }
+        //Turns false if any given pair is not consecutive. Doesnt allow for wrap-arounds (Q, K, A, 2, 3 is not a straight)
+        if(getValue(hand[i])+1 != getValue(hand[i+1])){
+            isStraight = false;
+            break;
+        }
+    }
+    return isStraight;
+}
+
+
+bool isFlush(vector<int>hand){
+    bool isFlush = true;
+    string compare = getSuit(hand[0]);
+    for(int i = 1; i < hand.size(); i++){
+        if(getSuit(hand[i]) != compare){
+            isFlush = false;
+            break;
+        }
+    }
+
+    return isFlush;
+}
+
+
+bool isFullHouse(vector<int>hand){
+    bool isFullHouse = true;
+    //Determines if there is any repeat value in the sorted hand
+    int repeat = -1;
+    for (int k = 0; k < hand.size(); k++) {
+        hand[k] = getValue(hand[k]);
+    }
+
+    for (int i = 0; i < hand.size(); ++i) {
+        if (getValue(hand[i]) == getValue(hand[i+1])) repeat = hand[i];
+    }
+
+    if(repeat != -1){
+        //If there is a repeat, removes all instances of the repeat
+        hand.erase(remove(hand.begin(), hand.end(), repeat), hand.end());
+
+        if(hand.size() > 1){
+            //If all remaining cards are equal, returns true
+            for(int i = 0; i < hand.size()-1; i++){
+                if(getValue(hand[i]) != getValue(hand[i+1])) isFullHouse = false;
+            }
+        } 
+        else isFullHouse = false;
+    }
+    else isFullHouse = false;
+
+    return isFullHouse;
+
+}
+
+
+bool isStraightFlush(vector<int>hand){
+    if(isStraight(hand) && isFlush(hand)) return true;
+    else return false;
+}
+
+
+bool isRoyalFlush(vector<int>hand){
+    if(isStraightFlush(hand) && getValue(hand[hand.size()-1]) == 14 && getValue(hand[0]) == 10)
+    return true;
+    else return false;
+}
+
+
+int valueHand(vector<int>hand){
+    if(isRoyalFlush(hand)) return 0;
+    else if(isStraightFlush(hand)) return 1;
+    else if(isNthOfAKind(4, hand)) return 2;
+    else if(isFullHouse(hand)) return 3;
+    else if(isFlush(hand)) return 4;
+    else if(isStraight(hand)) return 5;
+    else if(isNthOfAKind(3, hand)) return 6;
+    else if(isTwoPair(hand)) return 7;
+    else if(isNthOfAKind(2, hand)) return 8;
+    else return 9;
+
 }
 
