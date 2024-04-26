@@ -101,10 +101,9 @@ void sortHand(vector<int>& hand){
 
 
 bool nthOfAKind(int n, vector<int>hand){
-    int counter;
-    int compare;
+    int counter = 1;
+    int compare = 0;
     for(int i = 0; i < hand.size()+1 - n; i++){
-        counter = 1;
         int compare = getValue(hand[i]);
         for(int j = i+1; j < hand.size(); j++){
             if(getValue(hand[j]) == compare) counter++;
