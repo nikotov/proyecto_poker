@@ -8,10 +8,10 @@
 using namespace std;
 
 // ASCII chars for suits
-    char hearts[] = "\x03";
-    char diamonds[] = "\x04";
-    char clubs[] = "\x05";
-    char spades[] = "\x06";
+    string hearts = "\x03";
+    string diamonds = "\x04";
+    string clubs = "\x05";
+    string spades = "\x06";
 
 
 int getValue(int card) {
@@ -43,7 +43,7 @@ void shuffleVec(vector<int>& vec) {
 }
 
 
-void printHand(vector<int>hand){
+/* void printHand(vector<int>hand){
 
     for(int i = 0; i < hand.size(); i++){
         cout << i+2 << ".) ";
@@ -72,7 +72,7 @@ void printHand(vector<int>hand){
         cout << " of " << getSuit(hand[i]) << endl;
     }
 }
-
+ */
 
 void dealHand(vector<int>& deck, vector<int>& hand){
     const int handSize = 5;
