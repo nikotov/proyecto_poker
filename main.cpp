@@ -28,8 +28,8 @@ int main() {
     
     while(running) {
         
-
-
+        running = false;
+        
     }
 
     printHand(deck);
