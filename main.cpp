@@ -20,22 +20,21 @@ int main() {
         39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
     };
 
+    vector<int> playDeck;
     vector<int> player;
     vector<int> computer;
+
+    bool running = true;
     
+    while(running) {
+        
+
+
+    }
+
+    printHand(deck);
+
     shuffleVec(deck);
-
-    dealHand(deck, player);
-    cout << "Player Deck: " << endl;
-    printHand(player);
-
-    sortHand(player);
-
-    cout << "Sorted Player Deck: " << endl;
-    printHand(player);
-
-    cout << boolalpha;
-    cout << nthOfAKind(3, player);
 
     return 0;
 }

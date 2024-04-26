@@ -15,7 +15,7 @@ using namespace std;
 
 int getValue(int card) {
     //returns numerical value of a card within a certain suit
-    return card % 13 + 1;
+    return card % 13 + 2;
 }
 
 
@@ -45,11 +45,11 @@ void shuffleVec(vector<int>& vec) {
 void printHand(vector<int>hand){
 
     for(int i = 0; i < hand.size(); i++){
-        cout << i+1 << ".) ";
+        cout << i+2 << ".) ";
 
         //Handles non-numerical cards
         switch(getValue(hand[i])){
-            case 1:
+            case 14:
                 cout << setw(5) << "Ace";
                 break;
 
