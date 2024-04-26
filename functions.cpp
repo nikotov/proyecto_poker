@@ -3,7 +3,6 @@
 #include <array>
 #include <algorithm>
 #include <iomanip>
-
 #include "functions.h"
 
 using namespace std;
@@ -245,29 +244,30 @@ int valueHand(vector<int>hand){
 void discardHand(vector<int>& deck, vector<int>& hand){
     cout <<"Cuales cartas del quieres descartar (0 para confirmar tu eleccion): ";
     
-    //Creates a vector to store the indexes of cards that will be discarded
-    vector<int> discards;
+    //Sets the value of cards to be discarded to -1
     for(int i = 0; i < hand.size();){
-        int temp;
-        cin >> temp;
-        if(temp == 0) break;
-        //Prevents the same card from being discarded twice
-        if(find(discards.begin(), discards.end(), temp) != discards.end()) 
-            cout << "Ya escogiste esta carta. Intenta otra vez.";
-        //Prevents an imput outside the range of the hand
-        else if(temp < 1 || temp > hand.size())
-            cout << "Introduce un numero valido. Intenta otra vez.";
+        int discard;
+        cin >> discard;
+        if(discard == 0) break;
 
+        else if(discard < 0 || discard > hand.size())
+            cout << "Ingresa un numero valido. Intenta otra vez" << endl;
+        
+        else if(hand[discard-1] == -1)
+            cout << "Ya escogiste esta carta. Intenta otra vez" << endl;
+        
         else{
-            discards.push_back(temp-1);
+            hand[discard-1] = -1;
             i++;
         }
     }
 
-    for(const auto i: discards){
-        hand.erase(hand.begin() + i);
-        hand.push_back(deck[0]);
-        deck.erase(deck.begin());
+    //Replaces all -1 values with new cards
+    for(int i = 0; i < hand.size(); i++){
+        if(hand[i] == -1){
+            hand[i] = deck[0];
+            deck.erase(deck.begin());
+        }
     }
 
     sortHand(hand);
