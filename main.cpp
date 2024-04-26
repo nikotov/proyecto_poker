@@ -10,50 +10,52 @@ using namespace std;
 
 int main() {
 
-    // Ordered deck
-    vector<int> deck = {
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-        13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
-    };
+int menu;
+do{
 
-    vector<int> playDeck;
-    vector<int> player;
-    vector<int> computer;
+   menu = printMenu();
 
-    bool running = true;
-    
-    while(running) {
+   if(menu == 1){ 
+
+        // Ordered deck
+        vector<int> deck = {
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+            13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+            26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+            39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
+        };
+        vector<int> player;
+        vector<int> computer;
+
+        shuffleVec(deck);
+
+        dealHand(deck, player);
+        sortHand(player);
+
+        dealHand(deck, computer);
+        sortHand(computer);
         
-        running = false;
-        
-    }
+        cout << "Player Hand: " << endl;
+        printHand(player);
 
-    //printHand(deck);
-    shuffleVec(deck);
+        cout << "Do you want to discard any card? [y/n]: ";
+        string choice;
+        cin >> choice;
+        if(choice == "y"){
+            discardHand(deck, player);
+            cout << "New Hand: " << endl;
+            printHand(player);
+        }
 
-    dealHand(deck, player);
-    cout << "Player Deck: " << endl;
-    printHandB(player);
+        cout << endl << "Deck Value: ";
+        cout << valueHand(player) << endl;
 
-    sortHand(player);
+        cout << "Congratulations! You won! Returning to main menu...";  
+   }
 
-    cout << "\nSorted Player Deck: " << endl;
-    printHandB(player);
+} while(menu != 3);
 
-    cout << endl << "Deck Value: ";
-    cout << valueHand(player);
+return 0;
 
-    cout << endl << endl;
-    discardHand(deck, player);
-
-    cout << "\nDiscard Player Deck: " << endl;
-    printHandB(player);
-
-    cout << endl << "Deck Value: ";
-    cout << valueHand(player);
-
-    return 0;
 }
 

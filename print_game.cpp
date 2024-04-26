@@ -23,10 +23,9 @@ int printMenu() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
         Poker Night
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. Jugar varias rondas
-2. Jugar una ronda
-3. Opciones
-4. Salir
+1. Jugar
+2. Opciones
+3. Salir
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 Ingrese un numero: )";
     cout << menu;
