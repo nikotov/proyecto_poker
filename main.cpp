@@ -4,7 +4,6 @@
 #include <vector>
 #include <algorithm>
 
-
 #include "functions.h"
 #include "print_game.h"
 
