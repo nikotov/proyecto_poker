@@ -7,19 +7,19 @@ void shuffleVec(vector<int>& vec);
 string getSuit(int card);
 
 int getValue(int card);
-//void printHand(vector<int>hand);
+
 void dealHand(vector<int>& deck, vector<int>& hand);
 
 void sortHand(std::vector<int>& hand); 
 
 bool nthOfAKind(int n, vector<int>hand);
 
-void shuffleVec(vector<int>& vec);
+void shuffleDeck(vector<int>& vec);
 
 string getSuit(int card);
 
 int getValue(int card);
-//void printHand(vector<int>hand);
+
 void dealHand(vector<int>& deck, vector<int>& hand);
 
 void sortHand(vector<int>& hand);
@@ -40,6 +40,10 @@ bool isStraightFlush(vector<int>hand);
 
 bool isRoyalFlush(vector<int>hand);
 
-int valueHand(vector<int>hand);
+vector<int> valueHand(vector<int> hand);
 
 void discardHand(vector<int>& deck, vector<int>& hand);
+
+void resetDeck(vector<int>& deck);
+
+void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand);
