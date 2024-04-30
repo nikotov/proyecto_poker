@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iomanip>
 #include "functions.h"
+#include <fstream>
 
 using namespace std;
 
@@ -271,5 +272,62 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     }
 
     sortHand(hand);
+}
+
+
+void logHand(vector<int> hand){
+
+    ofstream outLog{"log.txt", ios::app};
+
+    if (!outLog){
+        cerr << "Log file could not be opened" << endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    for(int i = 0; i < hand.size(); i++){
+        outLog << i+1 << ".) ";
+
+        //Handles non-numerical cards
+        switch(getValue(hand[i])){
+            case 14:
+                outLog << setw(5) << "Ace";
+                break;
+
+            case 11: 
+                outLog << setw(5) << "Jack";
+                break;
+                                
+            case 12:
+                outLog << setw(5) << "Queen";
+                break;
+                                
+            case 13:
+                outLog << setw(5) << "King";
+                break;
+            
+            default:
+                outLog << setw(5) << getValue(hand[i]);                           
+        }
+        outLog << " of ";
+
+        switch(hand[i] / 13){
+            case 0: 
+                outLog << "hearts";
+                break;
+
+            case 1:  
+                outLog << "diamonds";
+                break;
+
+            case 2: 
+                outLog <<  "clubs";
+                break;
+
+            default:
+                outLog << "spades";
+        }
+        outLog << endl;
+    }
+    outLog.close();
 }
 

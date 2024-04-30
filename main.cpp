@@ -49,6 +49,7 @@ do{
 
         cout << endl << "Deck Value: ";
         cout << valueHand(player) << endl;
+        logHand(player);
 
         cout << "Congratulations! You won! Returning to main menu...";  
    }
