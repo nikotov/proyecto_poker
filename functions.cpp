@@ -533,6 +533,7 @@ const string showdown = R"(
 
 
 void resetDeck(vector<int>& deck) {
+    //Puts all cards back into the deck to play again
     deck = newDeck;
     return;
 }
@@ -557,7 +558,7 @@ void botAlgorithm (vector<int>& hand, vector<int>& deck) {
         }
 
         
-        
+    
         
             sortHand(discard);
 
