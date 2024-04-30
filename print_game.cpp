@@ -25,8 +25,7 @@ int printMenu() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 1. Jugar 5 rondas
 2. Jugar 1 ronda
-3. Opciones
-4. Salir
+3. Salir
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 Ingrese un numero: )";
     cout << menu;

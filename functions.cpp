@@ -453,8 +453,6 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     resetDeck(playDeck);
     
     shuffleDeck(playDeck);
-    //chooseHand(playerHand);
-    //chooseHand(botHand);
     dealHand(playDeck, botHand);
     dealHand(playDeck, playerHand);
     sortHand(playerHand);
