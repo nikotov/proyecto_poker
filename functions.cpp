@@ -178,6 +178,7 @@ bool isStraight(vector<int>hand){
 bool isFlush(vector<int>hand){
     bool isFlush = true;
     string compare = getSuit(hand[0]);
+    //Compares the suit of the first card to all others. If there is a difference, returns false
     for(int i = 1; i < hand.size(); i++){
         if(getSuit(hand[i]) != compare){
             isFlush = false;
@@ -227,6 +228,7 @@ bool isStraightFlush(vector<int>hand){
 
 
 bool isRoyalFlush(vector<int>hand){
+    //Straight Flush where first card is a 10 and last is an Ace
     if(isStraightFlush(hand) && getValue(hand.back()) == 14 && getValue(hand[0]) == 10)
     return true;
     else return false;
@@ -386,14 +388,14 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     hand = newHand;
     dealHand(deck, hand);
 
-
     sortHand(hand);
 
 }
 
 
 void logHand(ofstream& outLog, vector<int> hand){
-
+    
+    //Copies the recieved hand into the log in text form
     for(int i = 0; i < hand.size(); i++){
         outLog << i+1 << ".) ";
 
@@ -440,7 +442,6 @@ void logHand(ofstream& outLog, vector<int> hand){
         outLog.flush();
     }
 }
-
 
 
 void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand, ofstream& log) {
