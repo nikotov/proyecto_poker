@@ -37,6 +37,7 @@ int main() {
             
             break;
         case 2:
+            clearConsole();
             playRound(playDeck, playerHand, botHand);
             break;
         

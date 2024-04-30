@@ -370,7 +370,7 @@ void discardHand(vector<int>& deck, vector<int>& hand){
             cout << "Introduce un numero valido. Intenta otra vez.";
         }
         else{
-            hand[discard-1] = -1;
+            discards.push_back(temp-1);
             i++;
         }
     }
@@ -390,6 +390,7 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     sortHand(hand);
 
 }
+
 
 void logHand(vector<int> hand){
 
@@ -466,15 +467,22 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     sortHand(playerHand);
     sortHand(botHand);
 
-    cout << "Tu mano: " << endl;
+    cout << "Tu mano: ";
     printHand(playerHand);
     discardHand(playDeck, playerHand);
     botAlgorithm(botHand, playDeck);
+    clearConsole();
 
-    
-    cout << "Mano del adversario: " << endl;
+const string showdown = R"(
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+         Showdown!
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+)";
+
+    cout << showdown;
+    cout << "Mano del adversario: ";
     printHand(botHand);
-    cout << "Tu nueva mano: " << endl;
+    cout << "Tu nueva mano: ";
     printHand(playerHand);
 
     evalPlayer = valueHand(playerHand);
@@ -498,7 +506,7 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
             break;
         }
         else if (getValue(evalPlayer[i]) < getValue(evalBot[i])){
-            cout << "Gano tu adversario";
+            cout << "Gano tu adversario...";
             break;
         }
         
