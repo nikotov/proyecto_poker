@@ -588,3 +588,4 @@ void botAlgorithm (vector<int>& hand, vector<int>& deck) {
 
     
 }
+
