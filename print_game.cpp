@@ -75,6 +75,7 @@ void printHand(vector<int>& hand) {
     cout << handBot;
 }
 
+
 void clearConsole () {
     cout << "\033[2J";
 }
