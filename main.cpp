@@ -67,7 +67,7 @@ int main() {
                 break;
             }
         
-        case 4:
+        case 3:
             running = false;
         default:
            clearConsole();
@@ -77,37 +77,6 @@ int main() {
     }
 
 
-    //shuffleVec(deck);
-
-    //dealHand(deck, player);
-    /* chooseHand(player);
-    cout << "Player Deck: " << endl;
-    printHand(player);
-
-/*         cout << "Do you want to discard any card? [y/n]: ";
-        string choice;
-        cin >> choice;
-        if(choice == "y"){
-            discardHand(deck, player);
-            outLog << "Discard Player Hand: " << endl;
-            logHand(outLog, player);
-            outLog << endl; 
-
-            cout << "New Player Hand: ";
-            printHand(player);
-        }
-
-        cout << endl << "Deck Value: ";
-        cout << valueHand(player) << endl;
-
-        outLog << "Player Wins" << endl << endl;
-        cout << "Congratulations! You won! Returning to main menu...";
-        outLog.close();
-   }
-
-} while(menu != 3);
-
-return 0; */
+    return 0;
 
 }
-
