@@ -357,7 +357,7 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     //Creates a vector to store the indexes of cards that will be discarded
     vector<int> discards;
     vector<int> newHand;
-    for(int i = 0; i < hand.size();){
+    for(int i = 0; i < hand.size() + 1;){
         int temp;
         cin >> temp;
         if(temp == 0) break;
@@ -392,15 +392,8 @@ void discardHand(vector<int>& deck, vector<int>& hand){
 }
 
 
-void logHand(vector<int> hand){
+void logHand(ofstream& outLog, vector<int> hand){
 
-    ofstream outLog{"log.txt", ios::app};
-
-    if (!outLog){
-        cerr << "Log file could not be opened" << endl;
-        exit(EXIT_FAILURE);
-    }
-    
     for(int i = 0; i < hand.size(); i++){
         outLog << i+1 << ".) ";
 
@@ -444,13 +437,13 @@ void logHand(vector<int> hand){
                 outLog << "spades";
         }
         outLog << endl;
+        outLog.flush();
     }
-    outLog.close();
 }
 
 
 
-void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand) {
+void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand, ofstream& log) {
     vector<int> evalPlayer;
     vector<int> evalBot;
     vector<int> reset;
@@ -467,11 +460,21 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     sortHand(playerHand);
     sortHand(botHand);
 
+    log << "Mano del jugador inicial: " << endl;
+    logHand(log, playerHand);
+    log << "Mano del bot inicial: " << endl;
+    logHand(log, botHand);
+
     cout << "Tu mano: ";
     printHand(playerHand);
     discardHand(playDeck, playerHand);
     botAlgorithm(botHand, playDeck);
     clearConsole();
+
+    log << "Mano del jugador final: " << endl;
+    logHand(log, playerHand);
+    log << "Mano del bot final: " << endl;
+    logHand(log, botHand);
 
 const string showdown = R"(
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -490,22 +493,27 @@ const string showdown = R"(
 
     for(int i = 0, f = evalPlayer.size() - 1; i < evalPlayer.size(); i++) {
         if (evalPlayer[i] < evalBot[i] && i == 0) {
+            log << "Jugador gana" << endl << endl;
             cout << "Ganaste!";
             break;
         }
         else if (evalPlayer[i] > evalBot[i] && i == 0) {
+            log << "Bot gana" << endl << endl;
             cout << "Gano tu adversario";
             break;
         }
         else if (getValue(evalPlayer[i]) == getValue(evalBot[i]) && i == f) {
+            log << "Empate" << endl << endl;
             cout << "Empate!";
             break;
         }
         else if (getValue(evalPlayer[i]) > getValue(evalBot[i])) {
+            log << "Jugador gana" << endl << endl;
             cout << "Ganaste!";
             break;
         }
         else if (getValue(evalPlayer[i]) < getValue(evalBot[i])){
+            log << "Bot gana" << endl << endl;
             cout << "Gano tu adversario...";
             break;
         }

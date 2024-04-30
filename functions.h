@@ -22,7 +22,7 @@ int getValue(int card);
 
 void printHandB(vector<int>hand);
 
-void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand);
+void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand, ofstream& log);
 
 void resetDeck(vector<int>& deck);
 
@@ -52,4 +52,4 @@ vector<int> valueHand(vector<int> hand);
 
 void discardHand(vector<int>& deck, vector<int>& hand);
 
-void logHand(vector<int> hand);
+void logHand(ofstream& outLog, vector<int> hand);
