@@ -234,31 +234,33 @@ bool isRoyalFlush(vector<int>hand){
 
 
 vector<int> valueHand(vector<int> hand){
-    vector<int> returnVector;
-    int end = hand[hand.size() - 1];
+    vector<int> returnVector; // Vector to return values
+    int end = hand[hand.size() - 1]; // Last card in hand
 
     if(isRoyalFlush(hand)) {
-        returnVector.push_back(0);
+        returnVector.push_back(0); // Values 0 if Royal Flush
         return(returnVector);
     }
 
     else if(isStraightFlush(hand)) {
-        returnVector.push_back(1);
-        returnVector.push_back(end);
+        returnVector.push_back(1);  // Values 1 if Straight Flush
+        returnVector.push_back(end); // Also returns highest card
         return(returnVector);
     }
 
     else if(isNthOfAKind(4, hand)) {
-        returnVector.push_back(2);
-        returnVector.push_back(hand[2]);
-        if (hand[2] == end) returnVector.push_back(hand[0]);
+        returnVector.push_back(2); // Values 2 if Poker
+        returnVector.push_back(hand[2]); // Returns poker card value
+        // Finds extra card and returns it as 2nd index
+        if (getValue(hand[2]) == getValue(end)) returnVector.push_back(hand[0]);
         else returnVector.push_back(end);
         return(returnVector);
     }
 
     else if(isFullHouse(hand)) {
-        returnVector.push_back(3);
-        if (hand[2] == end) {
+        returnVector.push_back(3); // Values 3 if Full House
+        // Checks value of three of a kind, value of pair and returns it as 1st and 2nd index
+        if (getValue(hand[2]) == end) {
             returnVector.push_back(end);
             returnVector.push_back(hand[0]);
         }
@@ -270,26 +272,28 @@ vector<int> valueHand(vector<int> hand){
     }
 
     else if(isFlush(hand)) {
-        returnVector.push_back(4);
+        returnVector.push_back(4); // Values 4 if Flush
+        // Returns hand cards in descending order
         for(int i = hand.size() - 1; i >= 0; i--) {
             returnVector.push_back(hand[i]);
         }
         return(returnVector);
     }
 
-    else if(isStraight(hand)) {
-        returnVector.push_back(5);
-        returnVector.push_back(end);
+    else if(isStraight(hand)) { 
+        returnVector.push_back(5); // Values 5 if Straight
+        returnVector.push_back(end); // Returns highest card of hand
     }
 
     else if(isNthOfAKind(3, hand)) {
-        returnVector.push_back(6);
-        if (hand[2] == end) {
+        returnVector.push_back(6); // Values 6 if three of a kind
+        // Finds value of three of a kind, returns it and extra cards in descending order
+        if (getValue(hand[2]) == getValue(end)) {
             returnVector.push_back(hand[2]);
             returnVector.push_back(hand[1]);
             returnVector.push_back(hand[0]);
         }
-        else if (hand[2] == hand[0]) {
+        else if (getValue(hand[2]) == getValue(hand[0])) {
             returnVector.push_back(hand[2]);
             returnVector.push_back(end);
             returnVector.push_back(hand[3]);
@@ -303,13 +307,14 @@ vector<int> valueHand(vector<int> hand){
     }
 
     else if(isTwoPair(hand)) {
-        returnVector.push_back(7);
-        if(hand[0] != hand[1]) {
+        returnVector.push_back(7); // Values 7 if two pair
+        // Checks for lone card, returns highest pair, lower pair, and lone card
+        if(getValue(hand[0]) != getValue(hand[1])) {
             returnVector.push_back(end);
             returnVector.push_back(hand[2]);
             returnVector.push_back(hand[0]);
         }
-        else if(end != hand[4]) {
+        else if(getValue(end) != getValue(hand[4])) {
             returnVector.push_back(hand[2]);
             returnVector.push_back(hand[0]);
             returnVector.push_back(end);
@@ -323,8 +328,9 @@ vector<int> valueHand(vector<int> hand){
     }
 
     else if(isNthOfAKind(2, hand)) {
-        returnVector.push_back(8);
-        vector<int> buffer = hand;
+        returnVector.push_back(8); // Values 8 if pair
+        vector<int> buffer = hand; // Copies hand
+        // Searchs for pair, sets its value to -1
         for(int i = 0; i < buffer.size() - 1; i++) {
             if(getValue(buffer[i]) == getValue(buffer[i+1])) {
                 returnVector.push_back(buffer[i]);
@@ -332,7 +338,8 @@ vector<int> valueHand(vector<int> hand){
                 buffer[i + 1] = -1;
             }            
         }
-        sortHand(buffer);
+        sortHand(buffer); // Sorts buffer, pair ends at indexes 0 and 1
+        // Returns lone cards in desending order
         returnVector.push_back(buffer[4]);
         returnVector.push_back(buffer[3]);
         returnVector.push_back(buffer[2]);
@@ -340,7 +347,8 @@ vector<int> valueHand(vector<int> hand){
     }
 
     else {
-        returnVector.push_back(9);
+        returnVector.push_back(9); // Values 9 if High Card
+        // Returns cards in desending order
         for(int i = hand.size() - 1; i >= 0; i--) {
             returnVector.push_back(hand[i]);
         }
@@ -524,56 +532,62 @@ const string showdown = R"(
 
 }
 
-
+// Sets a deck to its init state
 void resetDeck(vector<int>& deck) {
     deck = newDeck;
     return;
 }
 
 
+// Handles bot descisions
 void botAlgorithm (vector<int>& hand, vector<int>& deck) {
+    // Init vectors
     vector<int> value = valueHand(hand);
     vector<int> discard;
     vector<int> newHand;
     
-    
+    // Checks whether hand contains a hand better than a three of a kind
     if (value[0] < 6) return;
 
+    // Checks if its not a high card hand
     if (value[0] != 9) {
         int flag = 0;
             for(int i = 0; i < hand.size(); i++) {
                 flag = 0;
+                // Loops and raises flag if card i is equal to any other one in hand
                 for (int j = 0; j < hand.size(); j++) {
                     if (getValue(hand[i]) == getValue(hand[j]) && j != i) flag = 1;
                 }
-                if(flag == 0) discard.push_back(i);
+                // If not equal to any other card, add its index
+                if(flag == 0) discard.push_back(i); 
         }
+          
+            sortHand(discard); // Sort discard array
 
-        
-        
-        
-            sortHand(discard);
-
+            // Loops through hand and copies cards if not in discard array
             for(int i = 0, j = 0; i < hand.size(); i++){
                 if(discard[j] == i) j++;
                 else newHand.push_back(hand[i]);
             }
-        hand = newHand;
-        dealHand(deck, hand);
+
+        hand = newHand; // Copies cards to keep into bot hand
+        dealHand(deck, hand); // Deals replacement cards
         sortHand(hand);
         return;
     }
-    else {
-        discard = {0, 1, 2};
+    else { // If high card hand
+        discard = {0, 1, 2}; // Sets discard to lowest 3 cards
 
         sortHand(discard);
 
+        // Loops and discards
         for(int i = 0, j = 0; i < hand.size(); i++){
             if(discard[j] == i) j++;
             else newHand.push_back(hand[i]);
         }
-        hand = newHand;
-        dealHand(deck, hand);
+
+        hand = newHand; // Copies kept cards
+        dealHand(deck, hand); // Deal replacement
         sortHand(hand);
         return;
     }
