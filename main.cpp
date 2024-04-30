@@ -7,6 +7,7 @@
 #include "functions.h"
 #include "print_game.h"
 
+
 using namespace std;
 
 
@@ -26,10 +27,16 @@ int main() {
 
     while(running) {
         
-
         option = printMenu();
         switch (option){
         case 1:
+            for (int i = 0; i < 5; i++) {
+                cout << "Ronda " << i+1 << endl;
+                playRound(playDeck, playerHand, botHand);
+            }
+            
+            break;
+        case 2:
             playRound(playDeck, playerHand, botHand);
             break;
         

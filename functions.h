@@ -47,3 +47,5 @@ void discardHand(vector<int>& deck, vector<int>& hand);
 void resetDeck(vector<int>& deck);
 
 void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand);
+
+void botAlgorithm (vector<int>& hand, vector<int>& deck);

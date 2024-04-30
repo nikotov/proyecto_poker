@@ -295,7 +295,7 @@ vector<int> valueHand(vector<int> hand){
         returnVector.push_back(8);
         vector<int> buffer = hand;
         for(int i = 0; i < buffer.size() - 1; i++) {
-            if(buffer[i] == buffer[i+1]) {
+            if(getValue(buffer[i]) == getValue(buffer[i+1])) {
                 returnVector.push_back(buffer[i]);
                 buffer[i] = -1;
                 buffer[i + 1] = -1;
@@ -371,6 +371,8 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     resetDeck(playDeck);
     
     shuffleDeck(playDeck);
+    //chooseHand(playerHand);
+    //chooseHand(botHand);
     dealHand(playDeck, botHand);
     dealHand(playDeck, playerHand);
     sortHand(playerHand);
@@ -379,41 +381,43 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     cout << "Tu mano: " << endl;
     printHand(playerHand);
     discardHand(playDeck, playerHand);
+    botAlgorithm(botHand, playDeck);
+
+    
+    cout << "Mano del adversario: " << endl;
+    printHand(botHand);
+    cout << "Tu nueva mano: " << endl;
+    printHand(playerHand);
 
     evalPlayer = valueHand(playerHand);
     evalBot = valueHand(botHand);
 
     for(int i = 0, f = evalPlayer.size() - 1; i < evalPlayer.size(); i++) {
         if (evalPlayer[i] < evalBot[i] && i == 0) {
-            cout << "P";
+            cout << "Ganaste!";
             break;
         }
         else if (evalPlayer[i] > evalBot[i] && i == 0) {
-            cout << "B";
+            cout << "Gano tu adversario";
             break;
         }
         else if (getValue(evalPlayer[i]) == getValue(evalBot[i]) && i == f) {
-            cout << "D";
+            cout << "Empate!";
             break;
         }
         else if (getValue(evalPlayer[i]) > getValue(evalBot[i])) {
-            cout << "P";
+            cout << "Ganaste!";
             break;
         }
         else if (getValue(evalPlayer[i]) < getValue(evalBot[i])){
-            cout << "B";
+            cout << "Gano tu adversario";
             break;
         }
         
     }
 
-    cout << "Adversario: " << endl;
-    printHand(botHand);
-    cout << "Tu mano: " << endl;
-    printHand(playerHand);
-
     int foo;
-    cout << "Ingresa cualquier valor para continuar: ";
+    cout << endl << "Ingresa cualquier valor para continuar: ";
     cin >> foo;
 
 }
@@ -424,3 +428,53 @@ void resetDeck(vector<int>& deck) {
     return;
 }
 
+
+void botAlgorithm (vector<int>& hand, vector<int>& deck) {
+    vector<int> value = valueHand(hand);
+    vector<int> discard;
+    vector<int> newHand;
+    
+    
+    if (value[0] < 6) return;
+
+    if (value[0] != 9) {
+        int flag = 0;
+            for(int i = 0; i < hand.size(); i++) {
+                flag = 0;
+                for (int j = 0; j < hand.size(); j++) {
+                    if (getValue(hand[i]) == getValue(hand[j]) && j != i) flag = 1;
+                }
+                if(flag == 0) discard.push_back(i);
+        }
+
+        
+        
+        
+            sortHand(discard);
+
+            for(int i = 0, j = 0; i < hand.size(); i++){
+                if(discard[j] == i) j++;
+                else newHand.push_back(hand[i]);
+            }
+        hand = newHand;
+        dealHand(deck, hand);
+        sortHand(hand);
+        return;
+    }
+    else {
+        discard = {0, 1, 2};
+
+        sortHand(discard);
+
+        for(int i = 0, j = 0; i < hand.size(); i++){
+            if(discard[j] == i) j++;
+            else newHand.push_back(hand[i]);
+        }
+        hand = newHand;
+        dealHand(deck, hand);
+        sortHand(hand);
+        return;
+    }
+
+    
+}

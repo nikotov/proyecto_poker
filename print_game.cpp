@@ -46,8 +46,8 @@ void printHand(vector<int>& hand) {
         }
         else if (value == 10) values.push_back("10");
         else if (value == 11) values.push_back(" J");
-        else if (value == 12) values.push_back(" K");
-        else if (value == 13) values.push_back(" Q");
+        else if (value == 12) values.push_back(" Q");
+        else if (value == 13) values.push_back(" K");
         else if (value == 14) values.push_back(" A");
     }
 
