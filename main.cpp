@@ -11,7 +11,6 @@
 using namespace std;
 
 
-
 int main() {
     vector<int> playDeck;
     vector<int> playerHand;
@@ -26,11 +25,12 @@ int main() {
     
 
     while(running) {
-        
+        clearConsole();
         option = printMenu();
         switch (option){
         case 1:
             for (int i = 0; i < 5; i++) {
+                clearConsole();
                 cout << "Ronda " << i+1 << endl;
                 playRound(playDeck, playerHand, botHand);
             }
@@ -43,7 +43,7 @@ int main() {
         case 4:
             running = false;
         default:
-           cout << "\033[2J";
+           clearConsole();
         }
 
         
@@ -57,14 +57,25 @@ int main() {
     cout << "Player Deck: " << endl;
     printHand(player);
 
-    sortHand(player);
+/*         cout << "Do you want to discard any card? [y/n]: ";
+        string choice;
+        cin >> choice;
+        if(choice == "y"){
+            discardHand(deck, player);
+            cout << "New Hand: " << endl;
+            printHand(player);
+        }
 
-    cout << "\nSorted Player Deck: " << endl;
-    printHand(player);
+        cout << endl << "Deck Value: ";
+        cout << valueHand(player) << endl;
+        logHand(player);
 
-    cout << endl << "Deck Value: ";
-    cout << valueHand(player);
- */
-    return 0;
+        cout << "Congratulations! You won! Returning to main menu...";  
+   }
+
+} while(menu != 3);
+
+return 0; */
+
 }
 

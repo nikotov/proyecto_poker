@@ -3,9 +3,9 @@
 #include <array>
 #include <algorithm>
 #include <iomanip>
-
 #include "functions.h"
 #include "print_game.h"
+#include <fstream>
 
 using namespace std;
 
@@ -46,6 +46,37 @@ void shuffleDeck(vector<int>& vec) {
     for (int i = vec.size() - 1; i > 0; --i) {
         int j = rand() % (i + 1);
         swap(vec[i], vec[j]);
+    }
+}
+
+
+void printHandB(vector<int>hand){
+
+    for(int i = 0; i < hand.size(); i++){
+        cout << i+1 << ".) ";
+
+        //Handles non-numerical cards
+        switch(getValue(hand[i])){
+            case 14:
+                cout << setw(5) << "Ace";
+                break;
+
+            case 11: 
+                cout << setw(5) << "Jack";
+                break;
+                                
+            case 12:
+                cout << setw(5) << "Queen";
+                break;
+                                
+            case 13:
+                cout << setw(5) << "King";
+                break;
+            
+            default:
+                cout << setw(5) << getValue(hand[i]);                           
+        }
+        cout << " of " << getSuit(hand[i]) << endl;
     }
 }
 
@@ -339,7 +370,7 @@ void discardHand(vector<int>& deck, vector<int>& hand){
             cout << "Introduce un numero valido. Intenta otra vez.";
         }
         else{
-            discards.push_back(temp-1);
+            hand[discard-1] = -1;
             i++;
         }
     }
@@ -359,6 +390,63 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     sortHand(hand);
 
 }
+
+void logHand(vector<int> hand){
+
+    ofstream outLog{"log.txt", ios::app};
+
+    if (!outLog){
+        cerr << "Log file could not be opened" << endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    for(int i = 0; i < hand.size(); i++){
+        outLog << i+1 << ".) ";
+
+        //Handles non-numerical cards
+        switch(getValue(hand[i])){
+            case 14:
+                outLog << setw(5) << "Ace";
+                break;
+
+            case 11: 
+                outLog << setw(5) << "Jack";
+                break;
+                                
+            case 12:
+                outLog << setw(5) << "Queen";
+                break;
+                                
+            case 13:
+                outLog << setw(5) << "King";
+                break;
+            
+            default:
+                outLog << setw(5) << getValue(hand[i]);                           
+        }
+        outLog << " of ";
+
+        switch(hand[i] / 13){
+            case 0: 
+                outLog << "hearts";
+                break;
+
+            case 1:  
+                outLog << "diamonds";
+                break;
+
+            case 2: 
+                outLog <<  "clubs";
+                break;
+
+            default:
+                outLog << "spades";
+        }
+        outLog << endl;
+    }
+    outLog.close();
+}
+
 
 
 void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand) {

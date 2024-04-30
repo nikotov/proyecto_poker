@@ -23,8 +23,8 @@ int printMenu() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
         Poker Night
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. Jugar varias rondas
-2. Jugar una ronda
+1. Jugar 5 rondas
+2. Jugar 1 ronda
 3. Opciones
 4. Salir
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,4 +73,8 @@ void printHand(vector<int>& hand) {
     cout << "| " << values[0] << "  || " << values[1] << "  || " << values[2] << "  || " << values[3] << "  || " << values[4] << "  |" << endl;
     cout << "|  " << suits[0] << "  ||  " << suits[1] << "  ||  " << suits[2] << "  ||  " << suits[3] << "  ||  " << suits[4] << "  |";
     cout << handBot;
+}
+
+void clearConsole () {
+    cout << "\033[2J";
 }

@@ -20,6 +20,14 @@ string getSuit(int card);
 
 int getValue(int card);
 
+void printHandB(vector<int>hand);
+
+void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand);
+
+void resetDeck(vector<int>& deck);
+
+void botAlgorithm (vector<int>& hand, vector<int>& deck);
+
 void dealHand(vector<int>& deck, vector<int>& hand);
 
 void sortHand(vector<int>& hand);
@@ -44,8 +52,4 @@ vector<int> valueHand(vector<int> hand);
 
 void discardHand(vector<int>& deck, vector<int>& hand);
 
-void resetDeck(vector<int>& deck);
-
-void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand);
-
-void botAlgorithm (vector<int>& hand, vector<int>& deck);
+void logHand(vector<int> hand);
