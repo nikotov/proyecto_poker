@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 #include "functions.h"
 #include "print_game.h"
 
@@ -15,7 +16,14 @@ do{
 
    menu = printMenu();
 
-   if(menu == 1){ 
+   if(menu == 1){
+
+        ofstream outLog{"log.txt", ios::app};
+
+        if (!outLog){
+            cerr << "Log file could not be opened" << endl;
+            exit(EXIT_FAILURE);
+        }
 
         // Ordered deck
         vector<int> deck = {
@@ -28,13 +36,20 @@ do{
         vector<int> computer;
 
         shuffleVec(deck);
-
-        dealHand(deck, player);
-        sortHand(player);
+        outLog << "New Game: " << endl << endl;
 
         dealHand(deck, computer);
         sortHand(computer);
-        
+        outLog << "Computer Hand: " << endl;
+        logHand(outLog, computer);
+        outLog << endl;
+
+        dealHand(deck, player);
+        sortHand(player);
+        outLog << "Player Hand: " << endl;
+        logHand(outLog, player);
+        outLog << endl;        
+
         cout << "Player Hand: " << endl;
         printHand(player);
 
@@ -43,15 +58,20 @@ do{
         cin >> choice;
         if(choice == "y"){
             discardHand(deck, player);
-            cout << "New Hand: " << endl;
+            outLog << "Discard Player Hand: " << endl;
+            logHand(outLog, player);
+            outLog << endl; 
+
+            cout << "New Player Hand: ";
             printHand(player);
         }
 
         cout << endl << "Deck Value: ";
         cout << valueHand(player) << endl;
-        logHand(player);
 
-        cout << "Congratulations! You won! Returning to main menu...";  
+        outLog << "Player Wins" << endl << endl;
+        cout << "Congratulations! You won! Returning to main menu...";
+        outLog.close();
    }
 
 } while(menu != 3);

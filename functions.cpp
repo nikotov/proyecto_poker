@@ -275,15 +275,8 @@ void discardHand(vector<int>& deck, vector<int>& hand){
 }
 
 
-void logHand(vector<int> hand){
+void logHand(ofstream& outLog, vector<int> hand){
 
-    ofstream outLog{"log.txt", ios::app};
-
-    if (!outLog){
-        cerr << "Log file could not be opened" << endl;
-        exit(EXIT_FAILURE);
-    }
-    
     for(int i = 0; i < hand.size(); i++){
         outLog << i+1 << ".) ";
 
@@ -327,7 +320,7 @@ void logHand(vector<int> hand){
                 outLog << "spades";
         }
         outLog << endl;
+        outLog.flush();
     }
-    outLog.close();
 }
 

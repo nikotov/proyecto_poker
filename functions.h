@@ -46,4 +46,4 @@ int valueHand(vector<int>hand);
 
 void discardHand(vector<int>& deck, vector<int>& hand);
 
-void logHand(vector<int> hand);
+void logHand(ofstream& outLog, vector<int> hand);
