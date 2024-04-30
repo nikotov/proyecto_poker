@@ -64,11 +64,12 @@ int main() {
                 break;
             }
         
-        case 4:
+        case 3:
             running = false;
         default:
            clearConsole();
         }
     }
+    
+    return 0;
 }
-

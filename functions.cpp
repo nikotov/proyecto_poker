@@ -449,18 +449,19 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
     vector<int> evalBot;
     vector<int> reset;
 
+    //Empties both players hands, reintroduces all cards back into the deck
     playerHand = reset;
     botHand = reset;
     resetDeck(playDeck);
     
+    //Shuffles deck, deals cards, and sorts the hands for future operations
     shuffleDeck(playDeck);
-    //chooseHand(playerHand);
-    //chooseHand(botHand);
     dealHand(playDeck, botHand);
     dealHand(playDeck, playerHand);
     sortHand(playerHand);
     sortHand(botHand);
 
+    //Registers current hands into the log
     log << "Mano del jugador inicial: " << endl;
     logHand(log, playerHand);
     log << "Mano del bot inicial: " << endl;
@@ -468,10 +469,13 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
 
     cout << "Tu mano: ";
     printHand(playerHand);
+
+    //Allows both players to discard the cards they need
     discardHand(playDeck, playerHand);
     botAlgorithm(botHand, playDeck);
     clearConsole();
-
+    
+    //Registers new hands into the log
     log << "Mano del jugador final: " << endl;
     logHand(log, playerHand);
     log << "Mano del bot final: " << endl;
@@ -489,6 +493,7 @@ const string showdown = R"(
     cout << "Tu nueva mano: ";
     printHand(playerHand);
 
+    //Returns a vector for comparing hands
     evalPlayer = valueHand(playerHand);
     evalBot = valueHand(botHand);
 
@@ -517,8 +522,7 @@ const string showdown = R"(
             log << "Bot gana" << endl << endl;
             cout << "Gano tu adversario...";
             break;
-        }
-        
+        }  
     }
 
     int foo;
