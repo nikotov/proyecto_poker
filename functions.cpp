@@ -178,6 +178,7 @@ bool isStraight(vector<int>hand){
 bool isFlush(vector<int>hand){
     bool isFlush = true;
     string compare = getSuit(hand[0]);
+    //Compares the suit of the first card to all others. If there is a difference, returns false
     for(int i = 1; i < hand.size(); i++){
         if(getSuit(hand[i]) != compare){
             isFlush = false;
@@ -227,6 +228,7 @@ bool isStraightFlush(vector<int>hand){
 
 
 bool isRoyalFlush(vector<int>hand){
+    //Straight Flush where first card is a 10 and last is an Ace
     if(isStraightFlush(hand) && getValue(hand.back()) == 14 && getValue(hand[0]) == 10)
     return true;
     else return false;
@@ -394,14 +396,14 @@ void discardHand(vector<int>& deck, vector<int>& hand){
     hand = newHand;
     dealHand(deck, hand);
 
-
     sortHand(hand);
 
 }
 
 
 void logHand(ofstream& outLog, vector<int> hand){
-
+    
+    //Copies the recieved hand into the log in text form
     for(int i = 0; i < hand.size(); i++){
         outLog << i+1 << ".) ";
 
@@ -450,22 +452,24 @@ void logHand(ofstream& outLog, vector<int> hand){
 }
 
 
-
 void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botHand, ofstream& log) {
     vector<int> evalPlayer;
     vector<int> evalBot;
     vector<int> reset;
 
+    //Empties both players hands, reintroduces all cards back into the deck
     playerHand = reset;
     botHand = reset;
     resetDeck(playDeck);
     
+    //Shuffles deck, deals cards, and sorts the hands for future operations
     shuffleDeck(playDeck);
     dealHand(playDeck, botHand);
     dealHand(playDeck, playerHand);
     sortHand(playerHand);
     sortHand(botHand);
 
+    //Registers current hands into the log
     log << "Mano del jugador inicial: " << endl;
     logHand(log, playerHand);
     log << "Mano del bot inicial: " << endl;
@@ -473,10 +477,13 @@ void playRound(vector<int>& playDeck, vector<int>& playerHand, vector<int>& botH
 
     cout << "Tu mano: ";
     printHand(playerHand);
+
+    //Allows both players to discard the cards they need
     discardHand(playDeck, playerHand);
     botAlgorithm(botHand, playDeck);
     clearConsole();
-
+    
+    //Registers new hands into the log
     log << "Mano del jugador final: " << endl;
     logHand(log, playerHand);
     log << "Mano del bot final: " << endl;
@@ -494,6 +501,7 @@ const string showdown = R"(
     cout << "Tu nueva mano: ";
     printHand(playerHand);
 
+    //Returns a vector for comparing hands
     evalPlayer = valueHand(playerHand);
     evalBot = valueHand(botHand);
 
@@ -522,8 +530,7 @@ const string showdown = R"(
             log << "Bot gana" << endl << endl;
             cout << "Gano tu adversario...";
             break;
-        }
-        
+        }  
     }
 
     int foo;
@@ -534,6 +541,7 @@ const string showdown = R"(
 
 // Sets a deck to its init state
 void resetDeck(vector<int>& deck) {
+    //Puts all cards back into the deck to play again
     deck = newDeck;
     return;
 }
