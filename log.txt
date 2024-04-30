@@ -1,5 +1,24 @@
-1.)     5 of clubs
-2.)     6 of spades
-3.)     7 of diamonds
-4.)     7 of clubs
+New Game: 
+
+Computer Hand: 
+1.)     5 of hearts
+2.)     5 of clubs
+3.)     6 of spades
+4.)     7 of spades
+5.)  King of spades
+
+Player Hand: 
+1.)     6 of clubs
+2.)     9 of hearts
+3.)     9 of clubs
+4.) Queen of clubs
 5.)   Ace of spades
+
+Discard Player Hand: 
+1.)     5 of diamonds
+2.)     9 of hearts
+3.)     9 of clubs
+4.)     9 of spades
+5.)  King of diamonds
+
+Player Wins
